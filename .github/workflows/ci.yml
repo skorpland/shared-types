@@ -1,0 +1,23 @@
+name: Run CI checks
+
+on:
+  pull_request: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Run eslint
+        run: |
+          npm ci
+          npm run lint
